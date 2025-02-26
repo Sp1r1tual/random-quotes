@@ -1,21 +1,4 @@
-const quotes = [
-    {
-        quote: "Роби, що можеш, з тим, що маєш, там, де ти є",
-        author: "Теодор Рузвельт",
-    },
-    {
-        quote: "Єдиний спосіб робити велику справу – любити те, що ти робиш",
-        author: "Стів Джобс",
-    },
-    {
-        quote: "Не бійся провалу. Це не кінець світу",
-        author: "Дензел Вашингтон",
-    },
-    {
-        quote: "Життя – це 10% того, що з тобою відбувається, і 90% того, як ти на це реагуєш",
-        author: "Чарльз Свіндолл",
-    },
-];
+import quotes from "./quotes.js";
 
 let lastIndex;
 
@@ -33,6 +16,10 @@ function generateQuote() {
     document.getElementById("author").innerText =
         "— " + quotes[randomIndex].author;
 }
+
+document
+    .getElementById("quote-button")
+    .addEventListener("click", generateQuote);
 
 document.getElementById("theme-toggle").addEventListener("click", () => {
     document.body.classList.toggle("dark-mode");
