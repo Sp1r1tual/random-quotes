@@ -54,14 +54,27 @@ body {
     width: 25%;
     background-color: #f0f0f0;
     font-style: italic;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 .dark-mode.favorites-container {
-    transition: background-color 0.3s, color 0.3s;
     background-color: rgb(28, 27, 27);
 }
 .dark-mode .favorite-card {
     color: black;
 }
+.favorite-icon {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
 #toggle-favorite {
-    display: none;
+    display: inline-block;
+    margin-bottom: 5px;
+    vertical-align: middle;
+}
+.animate-heart {
+    transform: scale(1.2);
+    transition: transform 0.15s ease-in-out;
 }
