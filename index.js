@@ -1,4 +1,9 @@
-import quotes from "./quotes.js";
+import quotes from "./src/quotes.js";
+import {
+    createFavoriteCard,
+    removeFavoriteFromList,
+    updateFavoriteIcon,
+} from "./src/quotesManager.js";
 
 const favoritesContainer = document.getElementById("favorites-container");
 const quoteButton = document.getElementById("quote-button");
@@ -27,7 +32,7 @@ function generateQuote() {
     quoteText.innerHTML = randomQuote.quote;
     authorText.innerText = "— " + randomQuote.author;
 
-    updateFavoriteIcon(randomQuote.isFavorite);
+    updateFavoriteIcon(toggleFavoriteBtn, randomQuote.isFavorite);
     toggleFavoriteBtn.style.display = "inline";
 }
 
@@ -39,50 +44,21 @@ function toggleFavorite() {
 
     const currentQuote = quotes[currentQuoteIndex];
     currentQuote.isFavorite = !currentQuote.isFavorite;
-    updateFavoriteIcon(currentQuote.isFavorite);
+    updateFavoriteIcon(toggleFavoriteBtn, currentQuote.isFavorite);
 
     if (currentQuote.isFavorite) {
-        const favoriteCard = createFavoriteCard(currentQuote);
+        const favoriteCard = createFavoriteCard(currentQuote, (quote) => {
+            if (
+                currentQuoteIndex !== -1 &&
+                quotes[currentQuoteIndex] === quote
+            ) {
+                updateFavoriteIcon(toggleFavoriteBtn, false);
+            }
+        });
         favoritesContainer.appendChild(favoriteCard);
     } else {
         removeFavoriteFromList(currentQuote);
     }
-}
-
-function createFavoriteCard(quote) {
-    const favoriteCard = document.createElement("div");
-    favoriteCard.classList.add("favorite-card");
-
-    favoriteCard.innerHTML = `
-        <p>${quote.quote} – ${quote.author}</p>
-        <img src="heart-filled.png" class="favorite-icon" alt="Видалити з улюбленого">
-    `;
-
-    const icon = favoriteCard.querySelector(".favorite-icon");
-    icon.addEventListener("click", () => {
-        quote.isFavorite = false;
-        favoriteCard.remove();
-        if (currentQuoteIndex !== -1 && quotes[currentQuoteIndex] === quote) {
-            updateFavoriteIcon(false);
-        }
-    });
-
-    return favoriteCard;
-}
-
-function updateFavoriteIcon(isFavorite) {
-    toggleFavoriteBtn.src = isFavorite ? "heart-filled.png" : "heart-empty.png";
-    toggleFavoriteBtn.alt = isFavorite
-        ? "Видалити з улюбленого"
-        : "Додати в улюблене";
-}
-
-function removeFavoriteFromList(quoteToRemove) {
-    document.querySelectorAll(".favorite-card").forEach((card) => {
-        if (card.textContent.includes(quoteToRemove.quote)) {
-            card.remove();
-        }
-    });
 }
 
 document.getElementById("theme-toggle").addEventListener("click", () => {
@@ -92,10 +68,3 @@ document.getElementById("theme-toggle").addEventListener("click", () => {
 
 quoteButton.addEventListener("click", generateQuote);
 toggleFavoriteBtn.addEventListener("click", toggleFavorite);
-
-quotes.forEach((quote) => {
-    if (quote.isFavorite) {
-        const favoriteCard = createFavoriteCard(quote);
-        favoritesContainer.appendChild(favoriteCard);
-    }
-});
