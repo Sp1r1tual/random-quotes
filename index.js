@@ -4,6 +4,7 @@ import {
     removeFavoriteFromList,
     updateFavoriteIcon,
 } from "./src/quotesManager.js";
+import { generateRandomIndex } from "./utilities/math.js";
 
 const favoritesContainer = document.getElementById("favorites-container");
 const quoteButton = document.getElementById("quote-button");
@@ -22,10 +23,7 @@ function generateQuote() {
         return;
     }
 
-    do {
-        currentQuoteIndex = Math.floor(Math.random() * quotes.length);
-    } while (currentQuoteIndex === lastIndex);
-
+    currentQuoteIndex = generateRandomIndex(quotes.length, lastIndex);
     const randomQuote = quotes[currentQuoteIndex];
     lastIndex = currentQuoteIndex;
 
