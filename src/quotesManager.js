@@ -1,4 +1,8 @@
 function showQuote(randomQuote, quoteText, authorText) {
+    if (!quoteText || !authorText) {
+        console.error("Елементи для цитати або автора не знайдені");
+        return;
+    }
     quoteText.innerHTML = randomQuote.quote;
     authorText.innerText = "— " + randomQuote.author;
 }
@@ -15,9 +19,7 @@ function createFavoriteCard(id, quote, onRemoveFavorite) {
 
     const icon = favoriteCard.querySelector(".favorite-icon");
     icon.addEventListener("click", () => {
-        quote.isFavorite = false;
-        favoriteCard.remove();
-        onRemoveFavorite(quote);
+        removeFavoriteFromList(quote, onRemoveFavorite);
     });
 
     return favoriteCard;
@@ -27,10 +29,14 @@ function findCardById(id) {
     return document.querySelector(`.favorite-card[data-quote-id="${id}"]`);
 }
 
-function removeFavoriteFromList(quoteToRemove) {
+function removeFavoriteFromList(quoteToRemove, onRemoveCallback = null) {
     const card = findCardById(quoteToRemove.id);
     if (card) {
         card.remove();
+        quoteToRemove.isFavorite = false;
+        if (onRemoveCallback) {
+            onRemoveCallback(quoteToRemove);
+        }
     }
 }
 

@@ -9,20 +9,17 @@ import { generateRandomIndex } from "./utilities/math.js";
 
 const toggleFavoriteBtn = document.getElementById("toggle-favorite");
 const quoteButton = document.getElementById("quote-button");
+const favoritesContainer = document.getElementById("favorites-container");
 
 let lastIndex = -1;
 let currentQuoteIndex = -1;
 
 function generateQuote() {
-    if (quotes.length === 0) {
-        console.error("Список цитат порожній!");
-        return;
-    }
-
     currentQuoteIndex = generateRandomIndex(quotes.length, lastIndex);
-
     const randomQuote = quotes[currentQuoteIndex];
+
     lastIndex = currentQuoteIndex;
+
     const quoteText = document.getElementById("quote");
     const authorText = document.getElementById("author");
 
@@ -43,9 +40,6 @@ function toggleFavorite() {
     updateFavoriteIcon(toggleFavoriteBtn, currentQuote.isFavorite);
 
     if (currentQuote.isFavorite) {
-        const favoritesContainer = document.getElementById(
-            "favorites-container"
-        );
         const favoriteCard = createFavoriteCard(
             currentQuote.id,
             currentQuote,
