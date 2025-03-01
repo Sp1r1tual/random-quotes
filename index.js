@@ -1,5 +1,6 @@
 import quotes from "./src/quotes.js";
 import {
+    showQuote,
     createFavoriteCard,
     removeFavoriteFromList,
     updateFavoriteIcon,
@@ -24,11 +25,11 @@ function generateQuote() {
     }
 
     currentQuoteIndex = generateRandomIndex(quotes.length, lastIndex);
+
     const randomQuote = quotes[currentQuoteIndex];
     lastIndex = currentQuoteIndex;
 
-    quoteText.innerHTML = randomQuote.quote;
-    authorText.innerText = "— " + randomQuote.author;
+    showQuote(randomQuote, quoteText, authorText);
 
     updateFavoriteIcon(toggleFavoriteBtn, randomQuote.isFavorite);
     toggleFavoriteBtn.style.display = "inline";

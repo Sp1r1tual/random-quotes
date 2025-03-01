@@ -1,3 +1,8 @@
+function showQuote(randomQuote, quoteText, authorText) {
+    quoteText.innerHTML = randomQuote.quote;
+    authorText.innerText = "— " + randomQuote.author;
+}
+
 function createFavoriteCard(quote, onRemoveFavorite) {
     const favoriteCard = document.createElement("div");
     favoriteCard.classList.add("favorite-card");
@@ -30,4 +35,9 @@ function updateFavoriteIcon(button, isFavorite) {
     button.alt = isFavorite ? "Видалити з улюбленого" : "Додати в улюблене";
 }
 
-export { createFavoriteCard, removeFavoriteFromList, updateFavoriteIcon };
+export {
+    showQuote,
+    createFavoriteCard,
+    removeFavoriteFromList,
+    updateFavoriteIcon,
+};

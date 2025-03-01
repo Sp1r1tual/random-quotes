@@ -39,6 +39,7 @@ body {
 #theme-toggle {
     width: 10%;
     margin-left: auto;
+    font-size: 14px;
 }
 .favorites-container {
     display: flex;
