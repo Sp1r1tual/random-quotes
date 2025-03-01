@@ -15,4 +15,10 @@ function generateRandomIndex(max, lastIndex = -1) {
     return newIndex;
 }
 
-export { generateRandomIndex };
+function generateRandomId() {
+    return Math.floor(Math.random() * 0xffffffff)
+        .toString(16)
+        .padStart(8, "0");
+}
+
+export { generateRandomIndex, generateRandomId };

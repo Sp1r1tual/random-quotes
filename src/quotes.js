@@ -1,4 +1,6 @@
-const quotes = [
+import { generateRandomId } from "../utilities/math.js";
+
+const quotesData = [
     {
         quote: "Роби, що можеш, з тим, що маєш, там, де ти є",
         author: "Теодор Рузвельт",
@@ -16,5 +18,12 @@ const quotes = [
         author: "Чарльз Свіндолл",
     },
 ];
+
+const quotes = quotesData.map((quoteData) => ({
+    id: generateRandomId(),
+    ...quoteData,
+    isFavorite: false,
+}));
+console.log(quotes);
 
 export default quotes;

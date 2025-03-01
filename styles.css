@@ -71,7 +71,7 @@ body {
     cursor: pointer;
 }
 #toggle-favorite {
-    display: inline-block;
+    display: none;
     margin-bottom: 5px;
     vertical-align: middle;
 }
