@@ -24,6 +24,7 @@ const quotes = quotesData.map((quoteData) => ({
     ...quoteData,
     isFavorite: false,
 }));
+
 console.log(quotes);
 
 export default quotes;

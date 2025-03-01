@@ -3,9 +3,10 @@ function showQuote(randomQuote, quoteText, authorText) {
     authorText.innerText = "— " + randomQuote.author;
 }
 
-function createFavoriteCard(quote, onRemoveFavorite) {
+function createFavoriteCard(id, quote, onRemoveFavorite) {
     const favoriteCard = document.createElement("div");
     favoriteCard.classList.add("favorite-card");
+    favoriteCard.dataset.quoteId = id;
 
     favoriteCard.innerHTML = `
         <p>${quote.quote} – ${quote.author}</p>
@@ -22,12 +23,15 @@ function createFavoriteCard(quote, onRemoveFavorite) {
     return favoriteCard;
 }
 
+function findCardById(id) {
+    return document.querySelector(`.favorite-card[data-quote-id="${id}"]`);
+}
+
 function removeFavoriteFromList(quoteToRemove) {
-    document.querySelectorAll(".favorite-card").forEach((card) => {
-        if (card.textContent.includes(quoteToRemove.quote)) {
-            card.remove();
-        }
-    });
+    const card = findCardById(quoteToRemove.id);
+    if (card) {
+        card.remove();
+    }
 }
 
 function updateFavoriteIcon(button, isFavorite) {

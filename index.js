@@ -7,16 +7,11 @@ import {
 } from "./src/quotesManager.js";
 import { generateRandomIndex } from "./utilities/math.js";
 
-const favoritesContainer = document.getElementById("favorites-container");
-const quoteButton = document.getElementById("quote-button");
-const quoteText = document.getElementById("quote");
-const authorText = document.getElementById("author");
 const toggleFavoriteBtn = document.getElementById("toggle-favorite");
+const quoteButton = document.getElementById("quote-button");
 
 let lastIndex = -1;
 let currentQuoteIndex = -1;
-
-toggleFavoriteBtn.style.display = "none";
 
 function generateQuote() {
     if (quotes.length === 0) {
@@ -28,6 +23,8 @@ function generateQuote() {
 
     const randomQuote = quotes[currentQuoteIndex];
     lastIndex = currentQuoteIndex;
+    const quoteText = document.getElementById("quote");
+    const authorText = document.getElementById("author");
 
     showQuote(randomQuote, quoteText, authorText);
 
@@ -46,14 +43,21 @@ function toggleFavorite() {
     updateFavoriteIcon(toggleFavoriteBtn, currentQuote.isFavorite);
 
     if (currentQuote.isFavorite) {
-        const favoriteCard = createFavoriteCard(currentQuote, (quote) => {
-            if (
-                currentQuoteIndex !== -1 &&
-                quotes[currentQuoteIndex] === quote
-            ) {
-                updateFavoriteIcon(toggleFavoriteBtn, false);
+        const favoritesContainer = document.getElementById(
+            "favorites-container"
+        );
+        const favoriteCard = createFavoriteCard(
+            currentQuote.id,
+            currentQuote,
+            (quote) => {
+                if (
+                    currentQuoteIndex !== -1 &&
+                    quotes[currentQuoteIndex] === quote
+                ) {
+                    updateFavoriteIcon(toggleFavoriteBtn, false);
+                }
             }
-        });
+        );
         favoritesContainer.appendChild(favoriteCard);
     } else {
         removeFavoriteFromList(currentQuote);
